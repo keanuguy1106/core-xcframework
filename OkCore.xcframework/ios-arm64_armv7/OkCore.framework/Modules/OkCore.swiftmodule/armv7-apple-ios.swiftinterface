@@ -4,19 +4,6 @@
 import Foundation
 @_exported import OkCore
 import Swift
-public class OkHiAddressResponse : Swift.Codable {
-  public init()
-  public init(id: Swift.String?, title: Swift.String?, createdAt: Swift.String?)
-  public var user: OkCore.OkHiUser? {
-    get
-  }
-  public var location: OkCore.OkHiLocation? {
-    get
-  }
-  @objc deinit
-  required public init(from decoder: Swift.Decoder) throws
-  public func encode(to encoder: Swift.Encoder) throws
-}
 public class OkHiUser : Swift.Codable {
   public var phone: Swift.String
   public var firstName: Swift.String?
@@ -27,16 +14,9 @@ public class OkHiUser : Swift.Codable {
   public func with(firstName: Swift.String) -> OkCore.OkHiUser
   public func with(lastName: Swift.String) -> OkCore.OkHiUser
   public func with(okHiId: Swift.String) -> OkCore.OkHiUser
+  @objc deinit
   required public init(from decoder: Swift.Decoder) throws
-  @objc deinit
   public func encode(to encoder: Swift.Encoder) throws
-}
-@_hasMissingDesignatedInitializers public class JSONHelper {
-  public static func encode<T>(object: T) throws -> Swift.String where T : Swift.Encodable
-  public static func decode<T>(json: Foundation.Data?, model: T.Type) throws -> T? where T : Swift.Decodable, T : Swift.Encodable
-  public static func decode<T>(json: Swift.String?, model: T.Type) throws -> T? where T : Swift.Decodable, T : Swift.Encodable
-  public static func jsonData(from json: Any?) -> Foundation.Data?
-  @objc deinit
 }
 public class OkHiLocation : Swift.Codable {
   public var id: Swift.String?
@@ -56,18 +36,18 @@ public class OkHiLocation : Swift.Codable {
   public var subtitle: Swift.String?
   public var displayTitle: Swift.String?
   public init()
-  required public init(from decoder: Swift.Decoder) throws
   @objc deinit
+  required public init(from decoder: Swift.Decoder) throws
   public func encode(to encoder: Swift.Encoder) throws
 }
-public struct OkHiTransitResponse : Swift.Decodable {
-  public var status: Swift.String
-  public init(from decoder: Swift.Decoder) throws
+@_hasMissingDesignatedInitializers public class OkHiUtils {
+  public static func encode<T>(object: T) throws -> Swift.String where T : Swift.Encodable
+  public static func decode<T>(json: Swift.String?, model: T.Type) throws -> T? where T : Swift.Decodable, T : Swift.Encodable
+  @objc deinit
 }
 @_hasMissingDesignatedInitializers public class StreetView : Swift.Codable {
   public var url: Swift.String?
   public var panoId: Swift.String?
-  public var geoPoint: OkCore.GeoPoint?
   @objc deinit
   required public init(from decoder: Swift.Decoder) throws
   public func encode(to encoder: Swift.Encoder) throws
@@ -84,54 +64,14 @@ public struct OkHiGeofenceConfig : Swift.Codable {
   public init(from decoder: Swift.Decoder) throws
   public func encode(to encoder: Swift.Encoder) throws
 }
-public struct Constants {
-}
-public enum Environment : Swift.String {
+public enum Environment {
   case prod
   case sandbox
-  public typealias RawValue = Swift.String
-  public init?(rawValue: Swift.String)
-  public var rawValue: Swift.String {
+  public static func == (a: OkCore.Environment, b: OkCore.Environment) -> Swift.Bool
+  public var hashValue: Swift.Int {
     get
   }
-}
-public enum Params : Swift.String {
-  case scopes
-  case userId
-  case phone
-  public typealias RawValue = Swift.String
-  public init?(rawValue: Swift.String)
-  public var rawValue: Swift.String {
-    get
-  }
-}
-public enum Headers : Swift.String {
-  case authorization
-  public typealias RawValue = Swift.String
-  public init?(rawValue: Swift.String)
-  public var rawValue: Swift.String {
-    get
-  }
-}
-public enum Endpoints : Swift.String {
-  case config
-  case authToken
-  case transit
-  case addressByPhone
-  public typealias RawValue = Swift.String
-  public init?(rawValue: Swift.String)
-  public var rawValue: Swift.String {
-    get
-  }
-}
-public enum Method : Swift.String {
-  case post
-  case get
-  public typealias RawValue = Swift.String
-  public init?(rawValue: Swift.String)
-  public var rawValue: Swift.String {
-    get
-  }
+  public func hash(into hasher: inout Swift.Hasher)
 }
 public enum OkHiAccessScope : Swift.String {
   case verify
@@ -158,34 +98,20 @@ public enum OkHiAccessScope : Swift.String {
 }
 public class OkHiCore {
   public init(okAuth: OkCore.OkHiAuth)
-  public func anonymousSignWith(phoneNumber: Swift.String, in scopes: [Swift.String], completion: @escaping (Swift.Result<Swift.String, OkCore.OkHiError>) -> Swift.Void)
-  public func anonymousSignWith(userId: Swift.String, in scopes: [Swift.String], completion: @escaping (Swift.Result<Swift.String, OkCore.OkHiError>) -> Swift.Void)
+  public func anonymousSignInWith(phoneNumber: Swift.String, in scopes: [Swift.String], completion: @escaping (Swift.Result<Swift.String, OkCore.OkHiError>) -> Swift.Void)
+  public func anonymousSignInWith(userId: Swift.String, in scopes: [Swift.String], completion: @escaping (Swift.Result<Swift.String, OkCore.OkHiError>) -> Swift.Void)
   public func getConfiguration(authToken: Swift.String, completion: @escaping (Swift.Result<OkCore.OkHiGeofenceConfig, OkCore.OkHiError>) -> Swift.Void)
-  public func executeRequest(to endpoint: Swift.String, method: Swift.String, body: Foundation.Data? = nil, headers: [Swift.String : Swift.String]? = nil, queryParams: [Swift.String : Swift.String]? = nil, completion: @escaping (Swift.Result<Any, OkCore.OkHiError>) -> Swift.Void)
+  public func transitEvents(with jsonData: Foundation.Data? = nil, accessToken: Swift.String, completion: @escaping (Swift.Result<Swift.String, OkCore.OkHiError>) -> Swift.Void)
   @objc deinit
-}
-public struct OkHiErrorResponse : Swift.Decodable {
-  public var error: Swift.String?
-  public var statusCode: Swift.Int
-  public var message: Swift.String?
-  public init(from decoder: Swift.Decoder) throws
 }
 public class OkHiAuth {
   public var accessToken: Swift.String? {
     get
   }
-  public var environment: Swift.String
+  public var environment: OkCore.Environment
   public init(branchId: Swift.String, clientId: Swift.String, environment: OkCore.Environment)
   public init(branchId: Swift.String, clientId: Swift.String, environment: Swift.String)
   @objc deinit
-}
-public enum OkHiErr : Swift.Error {
-  case General
-  public static func == (a: OkCore.OkHiErr, b: OkCore.OkHiErr) -> Swift.Bool
-  public var hashValue: Swift.Int {
-    get
-  }
-  public func hash(into hasher: inout Swift.Hasher)
 }
 public class OkHiError : Swift.Error {
   public enum ErrorCodes : Swift.String {
@@ -194,10 +120,8 @@ public class OkHiError : Swift.Error {
     case invalidPhone
     case unauthorized
     case permisionDenied
-    case serviceUnavailable
     case unableToParse
     case unablePrepareUrl
-    case unableToInstantiateController
     case webViewInternalHttp
     case missingLocationId
     public typealias RawValue = Swift.String
@@ -213,7 +137,6 @@ public class OkHiError : Swift.Error {
     case unauthorized
     case unableToParse
     case unablePrepareUrl
-    case unableToInstantiateController
     case webViewInternalHttp
     case missingLocationId
     public typealias RawValue = Swift.String
@@ -231,24 +154,9 @@ public class OkHiError : Swift.Error {
 }
 extension OkCore.Environment : Swift.Equatable {}
 extension OkCore.Environment : Swift.Hashable {}
-extension OkCore.Environment : Swift.RawRepresentable {}
-extension OkCore.Params : Swift.Equatable {}
-extension OkCore.Params : Swift.Hashable {}
-extension OkCore.Params : Swift.RawRepresentable {}
-extension OkCore.Headers : Swift.Equatable {}
-extension OkCore.Headers : Swift.Hashable {}
-extension OkCore.Headers : Swift.RawRepresentable {}
-extension OkCore.Endpoints : Swift.Equatable {}
-extension OkCore.Endpoints : Swift.Hashable {}
-extension OkCore.Endpoints : Swift.RawRepresentable {}
-extension OkCore.Method : Swift.Equatable {}
-extension OkCore.Method : Swift.Hashable {}
-extension OkCore.Method : Swift.RawRepresentable {}
 extension OkCore.OkHiAccessScope : Swift.Equatable {}
 extension OkCore.OkHiAccessScope : Swift.Hashable {}
 extension OkCore.OkHiAccessScope : Swift.RawRepresentable {}
-extension OkCore.OkHiErr : Swift.Equatable {}
-extension OkCore.OkHiErr : Swift.Hashable {}
 extension OkCore.OkHiError.ErrorCodes : Swift.Equatable {}
 extension OkCore.OkHiError.ErrorCodes : Swift.Hashable {}
 extension OkCore.OkHiError.ErrorCodes : Swift.RawRepresentable {}

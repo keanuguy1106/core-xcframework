@@ -211,12 +211,21 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 @class NSCoder;
 
+/// Class GeoPoint
 SWIFT_CLASS("_TtC6OkCore8GeoPoint")
 @interface GeoPoint : NSObject <NSSecureCoding>
+/// Supports Secure Coding
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class) BOOL supportsSecureCoding;)
 + (BOOL)supportsSecureCoding SWIFT_WARN_UNUSED_RESULT;
 + (void)setSupportsSecureCoding:(BOOL)value;
+/// Encode
 - (void)encodeWithCoder:(NSCoder * _Nonnull)aCoder;
+/// Initializes GeoPoint class with NSCoder
+/// <ul>
+///   <li>
+///     Parameters coder:
+///   </li>
+/// </ul>
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
@@ -440,12 +449,21 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 @class NSCoder;
 
+/// Class GeoPoint
 SWIFT_CLASS("_TtC6OkCore8GeoPoint")
 @interface GeoPoint : NSObject <NSSecureCoding>
+/// Supports Secure Coding
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class) BOOL supportsSecureCoding;)
 + (BOOL)supportsSecureCoding SWIFT_WARN_UNUSED_RESULT;
 + (void)setSupportsSecureCoding:(BOOL)value;
+/// Encode
 - (void)encodeWithCoder:(NSCoder * _Nonnull)aCoder;
+/// Initializes GeoPoint class with NSCoder
+/// <ul>
+///   <li>
+///     Parameters coder:
+///   </li>
+/// </ul>
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
