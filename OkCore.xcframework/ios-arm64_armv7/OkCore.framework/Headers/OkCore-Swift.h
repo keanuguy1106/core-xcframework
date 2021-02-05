@@ -211,7 +211,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 @class NSCoder;
 
-/// Class GeoPoint
+/// Defines GeoPoint class
 SWIFT_CLASS("_TtC6OkCore8GeoPoint")
 @interface GeoPoint : NSObject <NSSecureCoding>
 /// Supports Secure Coding
@@ -449,7 +449,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 @class NSCoder;
 
-/// Class GeoPoint
+/// Defines GeoPoint class
 SWIFT_CLASS("_TtC6OkCore8GeoPoint")
 @interface GeoPoint : NSObject <NSSecureCoding>
 /// Supports Secure Coding
