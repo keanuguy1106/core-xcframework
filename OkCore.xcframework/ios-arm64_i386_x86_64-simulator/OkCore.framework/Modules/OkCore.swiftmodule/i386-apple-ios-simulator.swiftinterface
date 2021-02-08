@@ -5,6 +5,7 @@ import Foundation
 @_exported import OkCore
 import Swift
 public class OkHiAppContext {
+  public var mode: Swift.String?
   public var platform: Swift.String
   public var developer: Swift.String
   public var appMeta: OkCore.OkHiAppMeta?
