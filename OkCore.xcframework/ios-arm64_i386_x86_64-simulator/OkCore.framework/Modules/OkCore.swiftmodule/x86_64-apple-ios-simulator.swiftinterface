@@ -4,6 +4,20 @@
 import Foundation
 @_exported import OkCore
 import Swift
+public class OkHiAppContext {
+  public var platform: Swift.String
+  public var developer: Swift.String
+  public var appMeta: OkCore.OkHiAppMeta?
+  public init()
+  public func withAppMeta(name: Swift.String, version: Swift.String, build: Swift.String) -> OkCore.OkHiAppContext
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class OkHiAppMeta {
+  public var name: Swift.String?
+  public var version: Swift.String?
+  public var build: Swift.String?
+  @objc deinit
+}
 public class OkHiUser : Swift.Codable {
   public var phone: Swift.String
   public var firstName: Swift.String?
@@ -108,8 +122,9 @@ public class OkHiAuth {
     get
   }
   public var environment: OkCore.Environment
-  public init(branchId: Swift.String, clientId: Swift.String, environment: OkCore.Environment)
-  public init(branchId: Swift.String, clientId: Swift.String, environment: Swift.String)
+  final public let appContext: OkCore.OkHiAppContext
+  public init(branchId: Swift.String, clientId: Swift.String, environment: OkCore.Environment, appContext: OkCore.OkHiAppContext? = nil)
+  public init(branchId: Swift.String, clientId: Swift.String, environment: Swift.String, appContext: OkCore.OkHiAppContext? = nil)
   @objc deinit
 }
 public class OkHiError : Swift.Error {
