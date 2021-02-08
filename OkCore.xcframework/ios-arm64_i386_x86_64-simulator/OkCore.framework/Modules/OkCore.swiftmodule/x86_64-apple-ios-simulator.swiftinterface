@@ -124,8 +124,8 @@ public class OkHiAuth {
   }
   public var environment: OkCore.Environment
   final public let appContext: OkCore.OkHiAppContext
-  public init(branchId: Swift.String, clientId: Swift.String, environment: OkCore.Environment, appContext: OkCore.OkHiAppContext? = nil)
-  public init(branchId: Swift.String, clientId: Swift.String, environment: Swift.String, appContext: OkCore.OkHiAppContext? = nil)
+  public init(branchId: Swift.String, clientKey: Swift.String, environment: OkCore.Environment, appContext: OkCore.OkHiAppContext? = nil)
+  public init(branchId: Swift.String, clientKey: Swift.String, environment: Swift.String, appContext: OkCore.OkHiAppContext? = nil)
   @objc deinit
 }
 public class OkHiError : Swift.Error {
