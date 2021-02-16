@@ -51,6 +51,7 @@ public class OkHiLocation : Swift.Codable {
   public var subtitle: Swift.String?
   public var displayTitle: Swift.String?
   public init()
+  public init(identifier: Swift.String, lat: Swift.Double, lon: Swift.Double)
   @objc deinit
   required public init(from decoder: Swift.Decoder) throws
   public func encode(to encoder: Swift.Encoder) throws
