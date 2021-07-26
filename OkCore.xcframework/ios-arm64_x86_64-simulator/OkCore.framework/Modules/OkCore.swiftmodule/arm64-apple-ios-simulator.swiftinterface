@@ -56,6 +56,9 @@ public class OkHiLocation : Swift.Codable {
   public var title: Swift.String?
   public var subtitle: Swift.String?
   public var displayTitle: Swift.String?
+  public var country: Swift.String?
+  public var state: Swift.String?
+  public var city: Swift.String?
   public init()
   public init(identifier: Swift.String, lat: Swift.Double, lon: Swift.Double)
   @objc deinit
