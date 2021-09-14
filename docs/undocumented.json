@@ -1,0 +1,40 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/maxim/Documents/Private_Projects/iOS/OkHiXCFrameworks/OkCore/OkCore/Extensions/UIDevice+Extension.swift",
+      "line": 13,
+      "symbol": "UIDevice.modelName",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/maxim/Documents/Private_Projects/iOS/OkHiXCFrameworks/OkCore/OkCore/Helpers/OkHiLocationService.swift",
+      "line": 13,
+      "symbol": "LocationPermissionType.whenInUse",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/maxim/Documents/Private_Projects/iOS/OkHiXCFrameworks/OkCore/OkCore/Helpers/OkHiLocationService.swift",
+      "line": 14,
+      "symbol": "LocationPermissionType.always",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/maxim/Documents/Private_Projects/iOS/OkHiXCFrameworks/OkCore/OkCore/Helpers/OkHiLocationService.swift",
+      "line": 81,
+      "symbol": "OkHiLocationService.locationManager(_:didChangeAuthorization:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/maxim/Documents/Private_Projects/iOS/OkHiXCFrameworks/OkCore/OkCore/OkHiCore.swift",
+      "line": 21,
+      "symbol": "OkHiCore.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/maxim/Documents/Private_Projects/iOS/OkHiXCFrameworks/OkCore"
+}
