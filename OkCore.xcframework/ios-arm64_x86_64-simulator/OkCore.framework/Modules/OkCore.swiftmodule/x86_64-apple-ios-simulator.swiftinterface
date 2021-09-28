@@ -1,5 +1,5 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.4.2 (swiftlang-1205.0.28.2 clang-1205.0.19.57)
+// swift-compiler-version: Apple Swift version 5.5 (swiftlang-1300.0.31.1 clang-1300.0.29.1)
 // swift-module-flags: -target x86_64-apple-ios12.1-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name OkCore
 import SystemConfiguration.CaptiveNetwork
 import CoreLocation
@@ -10,6 +10,7 @@ import Network
 import Swift
 import SystemConfiguration
 import UIKit
+import _Concurrency
 public class OkHiAppContext {
   public var mode: Swift.String?
   public var platform: Swift.String
@@ -56,9 +57,6 @@ public class OkHiLocation : Swift.Codable {
   public var title: Swift.String?
   public var subtitle: Swift.String?
   public var displayTitle: Swift.String?
-  public var country: Swift.String?
-  public var state: Swift.String?
-  public var city: Swift.String?
   public init()
   public init(identifier: Swift.String, lat: Swift.Double, lon: Swift.Double)
   @objc deinit
@@ -129,8 +127,8 @@ public enum OkHiAccessScope : Swift.String {
     get
   }
 }
-extension UIDevice {
-  public static let modelName: Swift.String
+extension UIKit.UIDevice {
+  @_Concurrency.MainActor(unsafe) public static let modelName: Swift.String
 }
 @objc public class GeoPoint : ObjectiveC.NSObject, Foundation.NSSecureCoding, Swift.Codable {
   @objc public static var supportsSecureCoding: Swift.Bool
@@ -139,7 +137,6 @@ extension UIDevice {
   public init(lat: Swift.Double, lon: Swift.Double)
   @objc public func encode(with aCoder: Foundation.NSCoder)
   @objc required public init?(coder: Foundation.NSCoder)
-  @objc override dynamic public init()
   @objc deinit
   public func encode(to encoder: Swift.Encoder) throws
   required public init(from decoder: Swift.Decoder) throws
@@ -154,7 +151,7 @@ extension UIDevice {
   public func sendDeviceHealthInfo(accessToken: Swift.String, completion: @escaping (Swift.Result<Swift.Bool, OkCore.OkHiError>) -> Swift.Void)
   @objc deinit
 }
-public class OkHiAuth {
+@_hasMissingDesignatedInitializers public class OkHiAuth {
   public var accessToken: Swift.String? {
     get
   }
@@ -162,6 +159,16 @@ public class OkHiAuth {
   final public let appContext: OkCore.OkHiAppContext
   public init(branchId: Swift.String, clientKey: Swift.String, environment: OkCore.Environment, appContext: OkCore.OkHiAppContext? = nil)
   public init(branchId: Swift.String, clientKey: Swift.String, environment: Swift.String, appContext: OkCore.OkHiAppContext? = nil)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class OkPreferences {
+  public static let shared: OkCore.OkPreferences
+  public var branchId: Swift.String? {
+    get
+  }
+  public var clientKey: Swift.String? {
+    get
+  }
   @objc deinit
 }
 public class OkHiError : Swift.Error {
