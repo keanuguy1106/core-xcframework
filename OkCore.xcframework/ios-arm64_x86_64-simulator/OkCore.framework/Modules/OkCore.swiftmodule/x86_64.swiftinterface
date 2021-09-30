@@ -169,6 +169,12 @@ extension UIKit.UIDevice {
   public var clientKey: Swift.String? {
     get
   }
+  public var environment: OkCore.Environment? {
+    get
+  }
+  public var appContext: OkCore.OkHiAppContext? {
+    get
+  }
   @objc deinit
 }
 public class OkHiError : Swift.Error {
