@@ -239,6 +239,12 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class) BOOL supportsSecureCoding;)
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
+/// Enum containing type of location permission requested
+typedef SWIFT_ENUM(NSInteger, LocationPermissionType, open) {
+  LocationPermissionTypeWhenInUse = 0,
+  LocationPermissionTypeAlways = 1,
+};
+
 @class NSString;
 @class OkHiAppMeta;
 
@@ -306,14 +312,71 @@ SWIFT_CLASS("_TtC6OkCore8OkHiCore")
 - (nonnull instancetype)initWithOkHiAuth:(OkHiAuth * _Nonnull)okHiAuth OBJC_DESIGNATED_INITIALIZER;
 @end
 
+@protocol OkHiLocationServiceDelegate;
 @class CLLocationManager;
 
 /// Defines OkHiLocationService class
 SWIFT_CLASS("_TtC6OkCore19OkHiLocationService")
 @interface OkHiLocationService : NSObject <CLLocationManagerDelegate>
 /// Initializes OkHiLocationService
+@property (nonatomic, weak) id <OkHiLocationServiceDelegate> _Nullable delegate;
+/// Initializes OkHiLocationService
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+/// Checks whether location permission is already granted
+- (BOOL)isLocationPermissionGranted SWIFT_WARN_UNUSED_RESULT;
+/// Checks whether location services are available
+- (BOOL)isLocationServicesAvailable SWIFT_WARN_UNUSED_RESULT;
+/// Requests  location permission
+/// \param withBackgroundLocationPermission if false only Wen In Use permission will be requested. Otherwise Always permission will be requested. True by default.
+///
+- (void)requestLocationPermissionWithBackgroundLocationPermission:(BOOL)withBackgroundLocationPermission;
 - (void)locationManager:(CLLocationManager * _Nonnull)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status;
+@end
+
+
+/// Delegate to handle OkHiLocationService event’s
+SWIFT_PROTOCOL("_TtP6OkCore27OkHiLocationServiceDelegate_")
+@protocol OkHiLocationServiceDelegate
+/// Delegate event raised when location services permission changed
+/// \param locationService OkHiLocationService object
+///
+/// \param locationPermissionType requested permission type enum
+///
+/// \param result the result of location access permision
+///
+- (void)okHiLocationServiceWithLocationService:(OkHiLocationService * _Nonnull)locationService didChangeLocationPermissionStatus:(enum LocationPermissionType)locationPermissionType result:(BOOL)result;
+@end
+
+
+/// Defines OkHiUser class of the user object requried by OkHi services and libraries
+SWIFT_CLASS("_TtC6OkCore8OkHiUser")
+@interface OkHiUser : NSObject
+/// The user’s phone number. Must be MSISDN standard format. e.g +254712345678
+@property (nonatomic, copy) NSString * _Nonnull phone;
+/// The user’s first name
+@property (nonatomic, copy) NSString * _Nullable firstName;
+/// The user’s last name
+@property (nonatomic, copy) NSString * _Nullable lastName;
+/// The OkHi’s userId. Usually obtained after a user successfully creates an OkHi address
+@property (nonatomic, copy) NSString * _Nullable id;
+/// Initalizes OkHiUser class
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+/// Initalizes OkHiUser class
+/// \param phoneNumber user’s phone number
+///
+- (nonnull instancetype)initWithPhoneNumber:(NSString * _Nonnull)phoneNumber OBJC_DESIGNATED_INITIALIZER;
+/// Initalizes OkHiUser class
+/// \param firstName user’s first name
+///
+- (OkHiUser * _Nonnull)withFirstName:(NSString * _Nonnull)firstName SWIFT_WARN_UNUSED_RESULT;
+/// Initalizes OkHiUser class
+/// \param lastName user’s last name
+///
+- (OkHiUser * _Nonnull)withLastName:(NSString * _Nonnull)lastName SWIFT_WARN_UNUSED_RESULT;
+/// Initalizes OkHiUser class
+/// \param okHiId user’s OkHi id
+///
+- (OkHiUser * _Nonnull)withOkHiId:(NSString * _Nonnull)okHiId SWIFT_WARN_UNUSED_RESULT;
 @end
 
 

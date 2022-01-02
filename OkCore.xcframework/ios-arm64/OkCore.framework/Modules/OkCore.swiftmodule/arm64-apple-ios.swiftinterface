@@ -26,19 +26,17 @@ import _Concurrency
   @objc public var build: Swift.String?
   @objc deinit
 }
-public class OkHiUser : Swift.Codable {
-  public var phone: Swift.String
-  public var firstName: Swift.String?
-  public var lastName: Swift.String?
-  public var id: Swift.String?
-  public init()
-  public init(phoneNumber: Swift.String)
-  public func with(firstName: Swift.String) -> OkCore.OkHiUser
-  public func with(lastName: Swift.String) -> OkCore.OkHiUser
-  public func with(okHiId: Swift.String) -> OkCore.OkHiUser
+@_inheritsConvenienceInitializers @objc public class OkHiUser : ObjectiveC.NSObject {
+  @objc public var phone: Swift.String
+  @objc public var firstName: Swift.String?
+  @objc public var lastName: Swift.String?
+  @objc public var id: Swift.String?
+  @objc override dynamic public init()
+  @objc public init(phoneNumber: Swift.String)
+  @objc public func with(firstName: Swift.String) -> OkCore.OkHiUser
+  @objc public func with(lastName: Swift.String) -> OkCore.OkHiUser
+  @objc public func with(okHiId: Swift.String) -> OkCore.OkHiUser
   @objc deinit
-  public func encode(to encoder: Swift.Encoder) throws
-  required public init(from decoder: Swift.Decoder) throws
 }
 public class OkHiLocation : Swift.Codable {
   public var id: Swift.String?
@@ -86,24 +84,24 @@ public struct OkHiGeofenceConfig : Swift.Codable {
   public func encode(to encoder: Swift.Encoder) throws
   public init(from decoder: Swift.Decoder) throws
 }
-public enum LocationPermissionType {
+@objc public enum LocationPermissionType : Swift.Int {
   case whenInUse
   case always
-  public static func == (a: OkCore.LocationPermissionType, b: OkCore.LocationPermissionType) -> Swift.Bool
-  public func hash(into hasher: inout Swift.Hasher)
-  public var hashValue: Swift.Int {
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
     get
   }
 }
-public protocol OkHiLocationServiceDelegate : ObjectiveC.NSObject {
-  func okHiLocationService(locationService: OkCore.OkHiLocationService, didChangeLocationPermissionStatus locationPermissionType: OkCore.LocationPermissionType, result: Swift.Bool)
+@objc public protocol OkHiLocationServiceDelegate {
+  @objc func okHiLocationService(locationService: OkCore.OkHiLocationService, didChangeLocationPermissionStatus locationPermissionType: OkCore.LocationPermissionType, result: Swift.Bool)
 }
 @objc @_inheritsConvenienceInitializers public class OkHiLocationService : ObjectiveC.NSObject, CoreLocation.CLLocationManagerDelegate {
-  weak public var delegate: OkCore.OkHiLocationServiceDelegate?
+  @objc weak public var delegate: OkCore.OkHiLocationServiceDelegate?
   @objc override dynamic public init()
-  public func isLocationPermissionGranted() -> Swift.Bool
-  public func isLocationServicesAvailable() -> Swift.Bool
-  public func requestLocationPermission(withBackgroundLocationPermission: Swift.Bool = true)
+  @objc public func isLocationPermissionGranted() -> Swift.Bool
+  @objc public func isLocationServicesAvailable() -> Swift.Bool
+  @objc public func requestLocationPermission(withBackgroundLocationPermission: Swift.Bool = true)
   @objc public func locationManager(_ manager: CoreLocation.CLLocationManager, didChangeAuthorization status: CoreLocation.CLAuthorizationStatus)
   @objc deinit
 }
@@ -216,6 +214,7 @@ public class OkHiError : Swift.Error {
 }
 extension OkCore.LocationPermissionType : Swift.Equatable {}
 extension OkCore.LocationPermissionType : Swift.Hashable {}
+extension OkCore.LocationPermissionType : Swift.RawRepresentable {}
 extension OkCore.Environment : Swift.Equatable {}
 extension OkCore.Environment : Swift.Hashable {}
 extension OkCore.Environment : Swift.RawRepresentable {}
